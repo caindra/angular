@@ -19,7 +19,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
   nav a {
     color: white;
-    text-decoration: none;å
+    text-decoration: none;
   }
 
   nav a.active {
