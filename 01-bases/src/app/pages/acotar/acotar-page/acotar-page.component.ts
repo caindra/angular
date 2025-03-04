@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, computed, signal } from '@angular/core';
 
 interface Character {
   id: number;
@@ -8,7 +9,9 @@ interface Character {
 
 @Component({
   selector: 'app-acotar-page',
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: './acotar-page.component.html',
   styles: ``
 })
@@ -65,4 +68,11 @@ export class AcotarPageComponent {
       power: 80,
     }
   ]);
+
+  //to be able to use NgClass:
+  powerClasses = computed(() => {
+    return {
+      'text-success': true,
+    }
+  });
 }
