@@ -14,11 +14,16 @@
       <h3>Listado</h3>
       <ul>
         @for (character of characters(); track character.id; let index = $index ) {
-          <li>
-            <span>{{ index + 1 }} - {{ character.name }}</span>
-            <strong [class.text-success]="character.power >= 90"> ({{ character.power }})</strong>
-            <strong [ngClass]="powerClasses()"> ({{ character.power }})</strong>
-          </li>
+
+          @if (character.power > 50) {
+            <li>
+              <span>{{ index + 1 }} - {{ character.name }}</span>
+              <strong [class.text-success]="character.power >= 90"> ({{ character.power }})</strong>
+              <strong [ngClass]="powerClasses()"> ({{ character.power }})</strong>
+            </li>
+          } @else {
+            <li><strong>Aquí no hay nadie</strong></li>
+          }
         }
       </ul>
     </div>

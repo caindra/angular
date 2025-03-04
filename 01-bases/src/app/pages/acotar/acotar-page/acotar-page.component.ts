@@ -65,7 +65,7 @@ export class AcotarPageComponent {
     {
       id: 10,
       name: "Elain Archeron",
-      power: 80,
+      power: 40,
     }
   ]);
 
