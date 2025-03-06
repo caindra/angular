@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
+import { CharacterListComponent } from '../../components/acotar/character-list/character-list.component';
 
 interface Character {
   id: number;
@@ -10,6 +11,9 @@ interface Character {
 @Component({
   selector: 'acotar-super',
   templateUrl: './acotar-super-page.component.html',
+  imports: [
+    CharacterListComponent
+  ],
   styles: ``
 })
 export class AcotarSuperPageComponent {
