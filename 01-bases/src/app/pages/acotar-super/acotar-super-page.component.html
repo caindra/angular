@@ -4,6 +4,7 @@
 <section>
   <div class="col">
     <div class="col-12 col-sm-6">
+      <!---->
       <h3>Agregar: {{ name() }}</h3>
       <input type="text" class="form-control" placeholder="Nombre"
         [value]="name()"
@@ -19,8 +20,13 @@
       <button (click)="addCharacter()" class="mt-2 btn btn-primary">Agregar</button>
     </div>
 
+    <!---->
+
     <div class="col-12 col-sm-6">
-      <acotar-character-list [characters]="characters()"/>
+      <acotar-character-list 
+        listName="Listado de personajes"
+        [characters]="characters()"
+      />
       
     </div>
   </div>
