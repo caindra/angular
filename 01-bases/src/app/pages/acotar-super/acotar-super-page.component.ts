@@ -1,5 +1,6 @@
+import { AcotarService } from './../../services/acotar.service';
 import { NgClass } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CharacterListComponent } from '../../components/acotar/character-list/character-list.component';
 import { CharacterAddComponent } from '../../components/acotar/character-add/character-add.component';
 
@@ -19,22 +20,11 @@ interface Character {
   styles: ``
 })
 export class AcotarSuperPageComponent {
-
-  name = signal('');
-  power = signal(0);
-
-  public characters = signal<Character[]>([
-    { id: 1, name: "Feyre Archeron", power: 95 },
-    { id: 2, name: "Rhysand", power: 98 },
-  ]);
-
-  addCharacter(newCharacter: Character): void {
-    this.characters.update(list => [...list, newCharacter]);
-    this.resetFields();
-  }
-
-  resetFields(): void {
-    this.name.set('');
-    this.power.set(0);
-  }
+  /*
+  // This is the Angular way to inject a service, this is how it was used to be done before
+  constructor(
+    public AcotarService: AcotarService
+  ) {}
+    */
+  public AcotarService = inject(AcotarService);
 }
