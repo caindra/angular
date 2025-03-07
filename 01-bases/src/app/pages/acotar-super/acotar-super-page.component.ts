@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { CharacterListComponent } from '../../components/acotar/character-list/character-list.component';
+import { CharacterAddComponent } from '../../components/acotar/character-add/character-add.component';
 
 interface Character {
   id: number;
@@ -12,7 +13,8 @@ interface Character {
   selector: 'acotar-super',
   templateUrl: './acotar-super-page.component.html',
   imports: [
-    CharacterListComponent
+    CharacterListComponent,
+    CharacterAddComponent
   ],
   styles: ``
 })
@@ -26,15 +28,7 @@ export class AcotarSuperPageComponent {
     { id: 2, name: "Rhysand", power: 98 },
   ]);
 
-  addCharacter(): void {
-    if (!this.name() || this.power() < 0) return;
-
-    const newCharacter: Character = {
-      id: this.characters().length + 1,
-      name: this.name(),
-      power: this.power()
-    };
-
+  addCharacter(newCharacter: Character): void {
     this.characters.update(list => [...list, newCharacter]);
     this.resetFields();
   }
