@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ListItemComponent } from './list-item/list-item.component';
 
 @Component({
@@ -10,5 +10,5 @@ import { ListItemComponent } from './list-item/list-item.component';
   styles: ``
 })
 export class ListComponent {
-
+  gifs = input.required<string[]>();
 }
