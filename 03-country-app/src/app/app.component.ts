@@ -5,8 +5,7 @@ import { FooterComponent } from "./shared/components/footer/footer.component";
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, FooterComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = '03-country-app';
