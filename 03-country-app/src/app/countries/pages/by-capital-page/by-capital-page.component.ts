@@ -3,13 +3,14 @@ import { SearchInputComponent } from "../../components/search-input/search-input
 import { ListComponent } from "../../components/list/list.component";
 import { CountryService } from '../../services/country.service';
 import { Country } from '../../interfaces/country.interface';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'country-by-capital-page',
   imports: [SearchInputComponent, ListComponent],
   templateUrl: './by-capital-page.component.html',
-  styles: ``
+  styles: ``,
 })
 export class ByCapitalPageComponent {
   countryService = inject(CountryService);
@@ -17,15 +18,12 @@ export class ByCapitalPageComponent {
   //Forma (experimental) de hacer las cosas con Angular 19
   query = signal('');
 
-  countryResource = resource({
+  countryResource = rxResource({
     request: () => ({ query: this.query() }),
-    loader: async ({ request }) => {
-      if (!request.query) return [];
-
-      return await firstValueFrom(
-        this.countryService.searchByCapital(request.query)
-      );
-    }
+    loader: ({ request }) => {
+      if (!request.query) return of([]);
+      return this.countryService.searchByCountry(request.query);
+    },
   });
 
   //=======================================================
@@ -39,20 +37,20 @@ export class ByCapitalPageComponent {
   // onSearch(query: string){
   //   if (this.isLoading()) return;
 
-    // this.isLoading.set(true);
-    // this.isError.set(null);
+  // this.isLoading.set(true);
+  // this.isError.set(null);
 
-    // this.countryService.searchByCapital(query).subscribe({
-    //   //los puntos con la flecha se usan para no perder la referencia
-    //   next: (countries) => {
-    //     this.isLoading.set(false);
-    //     this.countries.set(countries);
-    //   },
-    //   error:(err) => {
-    //     this.isLoading.set(false);
-    //     this.countries.set([]);
-    //     this.isError.set(err);
-    //   },
-    // });
+  // this.countryService.searchByCapital(query).subscribe({
+  //   //los puntos con la flecha se usan para no perder la referencia
+  //   next: (countries) => {
+  //     this.isLoading.set(false);
+  //     this.countries.set(countries);
+  //   },
+  //   error:(err) => {
+  //     this.isLoading.set(false);
+  //     this.countries.set([]);
+  //     this.isError.set(err);
+  //   },
+  // });
   // }
 }
