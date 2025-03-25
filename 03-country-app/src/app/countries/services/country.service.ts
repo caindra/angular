@@ -15,13 +15,41 @@ export class CountryService {
 
   searchByCapital(query: string): Observable<Country[]> {
     const lowerCaseQuery = query.toLocaleLowerCase();
-    return this.http.get<RESTCountry[]>(`${API_URL}/capital/${lowerCaseQuery}`)
-      .pipe(
+    const url = `${API_URL}/capital/${lowerCaseQuery}`;
+    
+    return this.http.get<RESTCountry[]>(url).pipe(
         map( resp => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
         catchError(error => {
           console.log('Error fetching: ', error);
           return throwError(() => new Error(`No se pudo obtener ningún país: ${query}`));
         })
-      )
+      );
   }
+
+  searchByCountry(query: string): Observable<Country[]> {
+    const lowerCaseQuery = query.toLocaleLowerCase();
+    const url = `${API_URL}/name/${lowerCaseQuery}`;
+
+    return this.http.get<RESTCountry[]>(url).pipe(
+        map( resp => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+        catchError(error => {
+          console.log('Error fetching: ', error);
+          return throwError(() => new Error(`No se pudo obtener ningún país: ${query}`));
+        })
+      );
+  }
+
+  searchByRegion(query: string): Observable<Country[]> {
+    const lowerCaseQuery = query.toLocaleLowerCase();
+    const url = `${API_URL}/region/${lowerCaseQuery}`;
+
+    return this.http.get<RESTCountry[]>(url).pipe(
+        map( resp => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+        catchError(error => {
+          console.log('Error fetching: ', error);
+          return throwError(() => new Error(`No se pudo obtener ningún país con la región introducida: ${query}`));
+        })
+      );
+  }
+
 }
