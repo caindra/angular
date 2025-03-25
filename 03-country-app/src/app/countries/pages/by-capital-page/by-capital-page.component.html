@@ -1,4 +1,21 @@
+<!-- Forma de hacer las cosas con Angular 19 (resources) -->
+
 <country-search-input
+  placeholder="Buscar país por capital"
+  (value)="query.set($event)"
+/>
+
+@if (countryResource.error()) {
+  <h3>{{countryResource.error()}}</h3>
+} 
+
+@if (countryResource.hasValue()) {
+  <country-list [countries]="countryResource.value()!"/>
+}
+
+<!-- Forma anterior de hacer las cosas -->
+
+<!-- <country-search-input
   placeholder="Buscar país por capital"
   (value)="onSearch($event)"
 />
@@ -7,5 +24,5 @@
   <h3>{{isError()}}</h3>
 } @else {
   <country-list [countries]="countries()"/>
-}
+} -->
 
