@@ -20,7 +20,7 @@ export class ByRegionPageComponent {
     request: () => ({ query: this.query() }),
     loader: ({ request }) => {
       if (!request.query) return of([]);
-      return this.countryService.searchByCountry(request.query);
+      return this.countryService.searchByRegion(request.query);
     },
   });
 }

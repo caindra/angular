@@ -22,7 +22,7 @@ export class ByCapitalPageComponent {
     request: () => ({ query: this.query() }),
     loader: ({ request }) => {
       if (!request.query) return of([]);
-      return this.countryService.searchByCountry(request.query);
+      return this.countryService.searchByCapital(request.query);
     },
   });
 
@@ -41,7 +41,7 @@ export class ByCapitalPageComponent {
   // this.isError.set(null);
 
   // this.countryService.searchByCapital(query).subscribe({
-  //   //los puntos con la flecha se usan para no perder la referencia
+  //   los puntos con la flecha se usan para no perder la referencia
   //   next: (countries) => {
   //     this.isLoading.set(false);
   //     this.countries.set(countries);

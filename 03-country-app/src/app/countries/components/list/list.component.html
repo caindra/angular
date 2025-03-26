@@ -29,11 +29,36 @@
             </span>
           </td>
           <td>
-            <a 
-              [routerLink]="['/country/by', country.cca2]" 
-              href="/" 
+            <a
+              [routerLink]="['/country/by', country.cca2]"
+              href="/"
               class="link-primary cursor-pointer"
             >Más información</a>
+          </td>
+        </tr>
+      }
+
+      @if (errorMessage()) {
+        <tr>
+          <td colspan="8" class="text-center">
+            {{ errorMessage() }}
+          </td>
+        </tr>
+      }
+      <!---->
+      @if (countries().length === 0) {
+        <tr>
+          <td colspan="8" class="text-center">
+            No se han encontrado resultados.
+          </td>
+        </tr>
+      }
+      <!---->
+      @if (isLoading()) {
+        <tr>
+          <td colspan="8" class="text-center">
+            
+            Buscando países
           </td>
         </tr>
       }

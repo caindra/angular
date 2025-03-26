@@ -5,13 +5,14 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'country-list',
-  imports: [
-    DecimalPipe,
-    RouterLink
-  ],
+  imports: [DecimalPipe, RouterLink],
   templateUrl: './list.component.html',
-  styles: ``
+  styles: ``,
 })
 export class ListComponent {
   countries = input.required<Country[]>();
+
+  errorMessage = input<string|unknown|null>();
+  isLoading = input<boolean>(false);
+  isEmpty = input<boolean>(false);
 }
