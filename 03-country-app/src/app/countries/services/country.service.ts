@@ -18,12 +18,14 @@ export class CountryService {
     const url = `${API_URL}/capital/${lowerCaseQuery}`;
 
     return this.http.get<RESTCountry[]>(url).pipe(
-        map( resp => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
-        catchError(error => {
-          console.log('Error fetching: ', error);
-          return throwError(() => new Error(`No se pudo obtener ningún país: ${query}`));
-        })
-      );
+      map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+      catchError((error) => {
+        console.log('Error fetching: ', error);
+        return throwError(
+          () => new Error(`No se pudo obtener ningún país: ${query}`)
+        );
+      })
+    );
   }
 
   searchByCountry(query: string): Observable<Country[]> {
@@ -31,12 +33,14 @@ export class CountryService {
     const url = `${API_URL}/name/${lowerCaseQuery}`;
 
     return this.http.get<RESTCountry[]>(url).pipe(
-        map( resp => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
-        catchError(error => {
-          console.log('Error fetching: ', error);
-          return throwError(() => new Error(`No se pudo obtener ningún país: ${query}`));
-        })
-      );
+      map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+      catchError((error) => {
+        console.log('Error fetching: ', error);
+        return throwError(
+          () => new Error(`No se pudo obtener ningún país: ${query}`)
+        );
+      })
+    );
   }
 
   searchByRegion(query: string): Observable<Country[]> {
@@ -44,12 +48,32 @@ export class CountryService {
     const url = `${API_URL}/region/${lowerCaseQuery}`;
 
     return this.http.get<RESTCountry[]>(url).pipe(
-        map( resp => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
-        catchError(error => {
-          console.log('Error fetching: ', error);
-          return throwError(() => new Error(`No se pudo obtener ningún país con la región introducida: ${query}`));
-        })
-      );
+      map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+      catchError((error) => {
+        console.log('Error fetching: ', error);
+        return throwError(
+          () =>
+            new Error(
+              `No se pudo obtener ningún país con la región introducida: ${query}`
+            )
+        );
+      })
+    );
   }
 
+  searchCountryByAlphaCode(code: string) {
+    const url = `${API_URL}/alpha/${code}`;
+
+    return this.http.get<RESTCountry[]>(url).pipe(
+      map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+      map((countries) => countries.at(0)),
+      catchError((error) => {
+        console.log('Error fetching ', error);
+
+        return throwError(
+          () => new Error(`No se pudo obtener países con ese código ${code}`)
+        );
+      })
+    );
+  }
 }
