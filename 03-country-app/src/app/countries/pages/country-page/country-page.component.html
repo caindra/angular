@@ -1,28 +1,12 @@
-<h1>{{countryCode()}}</h1>
-
 @if (countryResource.error()) {
-  <div class="alert alert-error mt-10 flex flex-col items-center">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="75"
-      height="75"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0m9-3v4m0 3v.01"
-      />
-    </svg>
-    <h3>{{ countryResource.error() }}</h3>
-    <a href="" class="link-primary cursor-pointer">Regresar a la página anterior</a>
-  </div>
+  <shared-not-found/>
+}
+
+@if (countryResource.isLoading()) {
+  <h1 class="text-3xl">Cargando...</h1>
 }
 
 @if (countryResource.hasValue()) {
-  <h3>Nombre: {{countryResource.value()!.name}}</h3>
+  <country-information-page [country]="countryResource.value()!"/>
 }
 
