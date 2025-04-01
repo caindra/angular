@@ -4,6 +4,7 @@ import { ListComponent } from "../../components/list/list.component";
 import { firstValueFrom, of } from 'rxjs';
 import { CountryService } from '../../services/country.service';
 import { rxResource } from '@angular/core/rxjs-interop';
+import type { Region } from '../../interfaces/region.type';
 
 @Component({
   selector: 'country-by-region-page',
@@ -14,13 +15,22 @@ import { rxResource } from '@angular/core/rxjs-interop';
 export class ByRegionPageComponent {
   countryService = inject(CountryService);
 
-  query = signal('');
+  public regions: Region[] = [
+    'Africa',
+    'Americas',
+    'Asia',
+    'Europe',
+    'Oceania',
+    'Antarctic',
+  ];
+  
+  selectedRegion = signal<Region|null>(null);
 
   countryResource = rxResource({
-    request: () => ({ query: this.query() }),
+    request: () => ({ region: this.selectedRegion() }),
     loader: ({ request }) => {
-      if (!request.query) return of([]);
-      return this.countryService.searchByRegion(request.query);
+      if (!request.region) return of([]);
+      return this.countryService.searchByRegion(request.region);
     },
   });
 }
