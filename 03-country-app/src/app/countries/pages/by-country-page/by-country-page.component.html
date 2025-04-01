@@ -1,6 +1,7 @@
 <country-search-input
   placeholder="Buscar país"
   (value)="query.set($event)"
+  [initalValue]="query()"
 />
 
 @if (countryResource.error()) {

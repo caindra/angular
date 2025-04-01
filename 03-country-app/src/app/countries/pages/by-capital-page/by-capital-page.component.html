@@ -3,6 +3,7 @@
 <country-search-input
   placeholder="Buscar país por capital"
   (value)="query.set($event)"
+  [initalValue]="query()"
 />
 
 @if (countryResource.error()) {
