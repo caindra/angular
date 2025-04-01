@@ -1,14 +1,13 @@
-import { Component, inject, resource, signal } from '@angular/core';
-import { SearchInputComponent } from "../../components/search-input/search-input.component";
+import { Component, inject, resource, signal } from '@angular/core';import { SearchInputComponent } from "../../components/search-input/search-input.component";
 import { ListComponent } from "../../components/list/list.component";
-import { firstValueFrom, of } from 'rxjs';
+import { of } from 'rxjs';
 import { CountryService } from '../../services/country.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import type { Region } from '../../interfaces/region.type';
 
 @Component({
   selector: 'country-by-region-page',
-  imports: [SearchInputComponent, ListComponent],
+  imports: [ListComponent],
   templateUrl: './by-region-page.component.html',
   styles: ``,
 })
