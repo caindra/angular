@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CardComponent } from "../../components/card/card.component";
-import { I18nPluralPipe, I18nSelectPipe, SlicePipe } from '@angular/common';
+import { I18nPluralPipe, I18nSelectPipe, JsonPipe, SlicePipe } from '@angular/common';
 
 const client1 = {
   name: 'Atlas',
@@ -23,7 +23,7 @@ const client2 = {
     I18nSelectPipe,
     I18nPluralPipe,
     SlicePipe,
-    
+    JsonPipe,
   ],
   templateUrl: './uncommon-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
