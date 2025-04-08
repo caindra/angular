@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CardComponent } from "../../components/card/card.component";
-import { I18nPluralPipe, I18nSelectPipe, JsonPipe, SlicePipe } from '@angular/common';
+import { I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe } from '@angular/common';
 
 const client1 = {
   name: 'Atlas',
@@ -24,6 +24,8 @@ const client2 = {
     I18nPluralPipe,
     SlicePipe,
     JsonPipe,
+    KeyValuePipe,
+    TitleCasePipe,
   ],
   templateUrl: './uncommon-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -68,4 +70,12 @@ export default class UncommonPageComponent {
   deleteClient() {
     this.clients.update((prev) => prev.slice(1));
   }
+
+  //KeyValue Pipe
+  profile = {
+    name: 'Aelin',
+    gender: 'female',
+    age: '23',
+    address: 'Ottawa, Canada',
+  };
 }
