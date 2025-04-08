@@ -14,3 +14,42 @@
     class="btn btn-primary mt-2">ToggleCase</button>
   </div>
 </div>
+
+<div class="divider my-2"></div>
+
+<section class="my-2">
+  <h2 class="text-2xl font-bold">Custom pipes in action!</h2>
+  <div class="flex gap-2 justify-end w-full">
+    <button class="btn btn-primary">By name</button>
+    <button class="btn btn-accent">Can fly?</button>
+    <button class="btn btn-secondary">By color</button>
+    <button class="btn btn-info">By creator</button>
+  </div>
+</section>
+
+<section class="overflow-x-auto w-full">
+  <table class="table table-xs w-full">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Can fly</th>
+        <th>Color</th>
+        <th>Creator</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+       @for (hero of heroes(); track hero.id; let index = $index) {
+        <tr>
+          <th>{{index}}</th>
+          <td>{{hero.name}}</td>
+          <td>{{hero.canFly}}</td>
+          <td>{{hero.color}}</td>
+          <td>{{hero.creator}}</td>
+        </tr>
+       }
+    </tbody>
+  </table>
+</section>
