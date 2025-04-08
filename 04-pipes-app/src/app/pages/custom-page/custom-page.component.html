@@ -9,7 +9,7 @@
     <div class="stat-value">{{name() | toggleCase: upperCase() }}</div>
     <div class="stat-desc">{{name()}}</div>
 
-    <button 
+    <button
       (click)="upperCase.set(!upperCase())"
     class="btn btn-primary mt-2">ToggleCase</button>
   </div>
@@ -45,8 +45,23 @@
         <tr>
           <th>{{index}}</th>
           <td>{{hero.name}}</td>
-          <td>{{hero.canFly}}</td>
-          <td>{{hero.color}}</td>
+          <td>
+            <span
+            class="text-xs w-44"
+            [class.text-success]="hero.canFly"
+            [class.text-accent]="!hero.canFly"
+            >
+              {{hero.canFly | canFly}}
+            </span>
+          </td>
+          <td>
+            <span
+              class="text-xs w-44"
+              [style.color]="hero.color | heroColor"
+            >
+              {{hero.color | heroColor }}
+            </span>
+          </td>
           <td>{{hero.creator}}</td>
         </tr>
        }
