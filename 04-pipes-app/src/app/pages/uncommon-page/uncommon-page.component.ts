@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CardComponent } from "../../components/card/card.component";
-import { I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe } from '@angular/common';
 
 const client1 = {
   name: 'Atlas',
@@ -26,6 +26,7 @@ const client2 = {
     JsonPipe,
     KeyValuePipe,
     TitleCasePipe,
+    AsyncPipe
   ],
   templateUrl: './uncommon-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -78,4 +79,12 @@ export default class UncommonPageComponent {
     age: '23',
     address: 'Ottawa, Canada',
   };
+
+  //Async Pipe
+  promiseValue: Promise<string> = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('Tenemos data en la promesa.');
+      console.log('Promesa finalizada');
+    }, 3500)
+  });
 }
