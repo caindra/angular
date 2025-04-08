@@ -57,12 +57,20 @@
           <td>
             <span
               class="text-xs w-44"
-              [style.color]="hero.color | heroColor"
+              [style.color]="hero.color | heroTextColor"
             >
-              {{hero.color | heroColor }}
+              {{hero.color | heroColor | titlecase }}
             </span>
           </td>
-          <td>{{hero.creator}}</td>
+          <td>
+            <span
+              class="text-xs w-44"
+              [class.text-accent]="hero.creator === 0"
+              [class.text-secondary]="hero.creator === 1"
+            >
+              {{hero.creator | heroCreator}}
+            </span>
+          </td>
         </tr>
        }
     </tbody>
