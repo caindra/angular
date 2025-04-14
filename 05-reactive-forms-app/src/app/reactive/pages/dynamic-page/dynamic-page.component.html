@@ -10,9 +10,11 @@
       <input class="form-control" placeholder="Nombre de la persona"
         formControlName="name"
       />
+      @if (formUtils.isValidField(myForm, 'name')) {
       <span class="form-text text-danger">
-        error message
+        {{formUtils.getFieldError(myForm, 'name')}}
       </span>
+      }
     </div>
   </div>
 
@@ -38,7 +40,7 @@
     <label class="col-sm-3 col-form-label">Favoritos</label>
     <div class="col-sm-9" formArrayName="favoriteGames">
 
-      @for (favoriteGames of favoriteGames.controls; track $index; let index = $index) {
+      @for (favoriteGame of favoriteGames.controls; track $index; let index = $index) {
         <div class="mb-1">
 
           <div class="input-group">
@@ -51,9 +53,11 @@
               Eliminar
             </button>
           </div>
+          @if (formUtils.isValidFieldinArray(favoriteGames, index)) {
           <span class="form-text text-danger">
-            Este campo es requerido
+            {{formUtils.getFieldErrorInArray(favoriteGames, index)}}
           </span>
+          }
 
         </div>
       }
