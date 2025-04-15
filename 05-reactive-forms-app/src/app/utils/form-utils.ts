@@ -83,14 +83,21 @@ export class FormUtils {
 
   static async checkingServerResponse(
     control: AbstractControl
-  ): Promise<ValidationErrors | null>{
+  ): Promise<ValidationErrors | null> {
     await sleep();
     const formValue = control.value;
-    if(formValue === 'hola@mundo.com'){
+    if (formValue === 'hola@mundo.com') {
       return {
         emailTake: true,
-      }
+      };
     }
     return null;
+  }
+
+  static notStrider(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    const formValue = control.value;
+    return formValue === 'strider' ? {notStrider: true} : null;
   }
 }
