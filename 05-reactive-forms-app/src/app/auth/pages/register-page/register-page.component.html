@@ -10,11 +10,12 @@
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Nombre y apellido</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="Nombre del usuario" formControlName="name"/>
+          <input type="text" class="form-control" placeholder="Nombre y apellido del usuario" formControlName="name"/>
 
           @if (formUtils.isValidField(myForm, 'name')) {
           <span class="form-text text-danger">
-            {{formUtils.getFieldError(myForm, 'name')}}
+            El campo debe de tener nombre y apellido
+            <!-- {{formUtils.getFieldError(myForm, 'name')}} -->
           </span>
           }
 
@@ -31,7 +32,8 @@
           <input type="email" class="form-control" placeholder="Email del usuario" formControlName="email"/>
           @if (formUtils.isValidField(myForm, 'email')) {
           <span class="form-text text-danger">
-            {{formUtils.getFieldError(myForm, 'email')}}
+            El valor ingresado no parece un correo electrónico
+            <!-- {{formUtils.getFieldError(myForm, 'email')}} -->
           </span>
           }
         </div>
@@ -91,6 +93,12 @@
 
       <div class="row">
         <div class="col">
+          @if (myForm.errors && myForm.touched){
+            <span class="form-text text-danger">
+              Las contraseñas no son iguales
+            </span>
+          }
+
           <button class="btn btn-primary float-end" type="submit">
             Crear
           </button>
@@ -111,6 +119,8 @@
 <pre>{{ myForm.pending | json }}</pre>
 
 <h2>Form errors</h2>
+<pre>{{ myForm.errors | json }}</pre>
+
 <h5>Nombre</h5>
 <pre>{{ myForm.controls['name'] | json }}</pre>
 <pre>{{ myForm.controls['name'].errors | json }}</pre>
