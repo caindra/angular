@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterNextRender, afterRender, Component, effect, OnInit } from '@angular/core';
 
 const log = (...messages: string[]) => {
   console.log(
@@ -13,50 +13,80 @@ const log = (...messages: string[]) => {
   templateUrl: './home-page.component.html',
   styles: ``,
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
   constructor() {
-    console.log(`Constructor llamado`);
+    log(`Constructor llamado`);
   }
 
+  basicEffect = effect((onCleanup) => {
+    log('effect', 'Disparar efectos secundarios');
+
+    onCleanup(() => {
+      log('onCleanup', 'Se ejecuta cuando el efecto se va a destruir.');
+    });
+  });
+
   ngOnInit() {
-    console.log(
-      `ngOnInit: Runs once after Angular has initialized all the component's inputs.`
+    log(
+      `ngOnInit:`,
+      `                                                                     Runs once after Angular has initialized all the component's inputs.`
     );
   }
 
   ngOnChanges() {
-    console.log(
-      `ngOnChanges: Runs once after Angular has initialized all the component's inputs.`
+    log(
+      `ngOnChanges:`,
+      `Runs once after Angular has initialized all the component's inputs.`
     );
   }
 
   ngDoCheck() {
-    console.log(
-      `ngDoCheck: Runs every time this component is checked for changes.`
-    );
+    log(`ngDoCheck:`, `Runs every time this component is checked for changes.`);
   }
 
   ngAfterContentInit() {
-    console.log(
-      `ngAfterContentInit: Runs once after the component's content has been initialized.`
+    log(
+      `ngAfterContentInit:`,
+      `Runs once after the component's content has been initialized.`
     );
   }
 
   ngAfterContentChecked() {
-    console.log(
-      `ngAfterContentChecked: Runs every time this component content has been checked for changes.`
+    log(
+      `ngAfterContentChecked:`,
+      `Runs every time this component content has been checked for changes.`
     );
   }
 
   ngAfterViewInit() {
-    console.log(
-      `ngAfterViewInit: Runs once after the component's view has been initialized.`
+    log(
+      `ngAfterViewInit:`,
+      `Runs once after the component's view has been initialized.`
     );
   }
 
   ngAfterViewChecked() {
-    console.log(
-      `ngAfterViewChecked: Runs every time the component's view has been checked for changes.`
+    log(
+      `ngAfterViewChecked:`,
+      `Runs every time the component's view has been checked for changes.`
     );
   }
+
+  ngOnDestroy() {
+    log(`ngOnDestroy:`, `	Runs once before the component is destroyed.`);
+  }
+
+  afterNextRenderEffect = afterNextRender(() => {
+    log(
+      `afterNextRender:`,
+      `Runs once the next time that all components have been rendered to the DOM.`
+    );
+  });
+
+  afterRender = afterRender(() => {
+    log(
+      `afterRender:`,
+      `	Runs every time all components have been rendered to the DOM.`
+    );
+  });
 }
