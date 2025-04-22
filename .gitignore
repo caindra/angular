@@ -1,2 +1,5 @@
 /node_modules
 .qodo
+.env
+environment.development.ts
+environment.ts
