@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MapComponent } from '@maplibre/ngx-maplibre-gl';
 
 @Component({
@@ -13,4 +13,6 @@ import { MapComponent } from '@maplibre/ngx-maplibre-gl';
     }
   `,
 })
-export class MapaComponent {}
+export class MapaComponent {
+  zoom = input.required<number>();
+}
