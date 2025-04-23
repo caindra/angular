@@ -1,10 +1,13 @@
 import { AfterViewInit, Component, effect, ElementRef, signal, viewChild } from '@angular/core';
-import { MapaComponent } from '../../components/mapa/mapa.component';
+import maplibregl from 'maplibre-gl';
+import { environment } from '../../../environments/environment';
+import { DecimalPipe, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-fullcreen-map-page',
   imports: [
-    MapaComponent,
+    DecimalPipe,
+    JsonPipe,
   ],
   templateUrl: './fullcreen-map-page.component.html',
   styles: `
@@ -16,7 +19,7 @@ import { MapaComponent } from '../../components/mapa/mapa.component';
     #controls{
       background-color: white;
       padding: 10px;
-      border.radius: 5px;
+      border-radius: 5px;
       position: fixed;
       bottom: 20px;
       right: 20px;
@@ -29,17 +32,50 @@ import { MapaComponent } from '../../components/mapa/mapa.component';
 })
 export class FullcreenMapPageComponent implements AfterViewInit{
   divElement = viewChild<ElementRef>('map');
+  map = signal<maplibregl.Map | null>(null);
+  maptilerKey = environment.maptilerKey;
 
-  zoom = signal(4);
+  zoom = signal(5);
+  coordinates = signal({
+    lng: -4,
+    lat: 40,
+  });
+
+  zoomEffect = effect(() => {
+    if (!this.map()) return;
+
+    this.map()?.setZoom(this.zoom());
+    // this.map()?.zoomTo(this.zoom());
+  });
 
   async ngAfterViewInit() {
-    if(!this.divElement()?.nativeElement) return;
+    if (!this.divElement()?.nativeElement) return;
 
-    await new Promise(resolve => setTimeout(resolve, 80));
+    await new Promise((resolve) => setTimeout(resolve, 80));
 
     const element = this.divElement()!.nativeElement;
-    console.log(element);
-    
+    const { lat, lng } = this.coordinates();
+
+    const map = new maplibregl.Map({
+      container: element, // container ID
+      style: `https://api.maptiler.com/maps/streets/style.json?key=${this.maptilerKey}`, // style URL
+      center: [lng, lat], // starting position [lng, lat]
+      zoom: this.zoom(), // starting zoom
+    });
+
+    this.mapListeners(map);
   }
 
+  mapListeners(map: maplibregl.Map) {
+    map.on('zoomend', (event) => {
+      const newZoom = event.target.getZoom();
+      this.zoom.set(newZoom);
+    });
+
+    map.on('moveend', () => {
+      const center = map.getCenter();
+      this.coordinates.set(center);
+    });
+
+  }
 }
