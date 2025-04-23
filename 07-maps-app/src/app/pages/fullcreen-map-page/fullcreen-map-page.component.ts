@@ -77,5 +77,14 @@ export class FullcreenMapPageComponent implements AfterViewInit{
       this.coordinates.set(center);
     });
 
+    map.on('load', () => {
+      console.log('Map loaded');
+    });
+
+    map.addControl(new maplibregl.FullscreenControl());
+    map.addControl(new maplibregl.NavigationControl());
+    map.addControl(new maplibregl.ScaleControl());
+
+    this.map.set(map);
   }
 }
