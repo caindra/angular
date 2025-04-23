@@ -1,5 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { MapComponent } from '@maplibre/ngx-maplibre-gl';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-mapa',
@@ -14,5 +15,7 @@ import { MapComponent } from '@maplibre/ngx-maplibre-gl';
   `,
 })
 export class MapaComponent {
+  maptilerKey = environment.maptilerKey;
+  url = signal(`https://api.maptiler.com/maps/streets/style.json?key=${this.maptilerKey}`);
   zoom = input.required<number>();
 }

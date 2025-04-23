@@ -5,17 +5,17 @@ require('dotenv').config();
 const targetPath = '.src/environments/environment.ts';
 const targetPathDev = '.src/environments/environment.development.ts';
 
-// const mapboxKey = process.env['MAPBOX_KEY'];
+const maptilerKey = process.env['MAPTILER_KEY'];
 
-// if(!mapboxKey){
-//   throw new Error('MAPBOX_KEY is not set');
-// }
+if(!maptilerKey){
+  throw new Error('MAPTILER_KEY is not set');
+}
 
-// const envFileContent = `
-//  export const environment = {
-//   mapboxKey: "${mapboxKey}"
-//  }
-// `;
+const envFileContent = `
+ export const environment = {
+  maptilerKey: "${maptilerKey}"
+ }
+`;
 
 mkdirSync('./src/environments', {recursive: true});
 writeFileSync(targetPath, envFileContent);
