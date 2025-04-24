@@ -1,21 +1,28 @@
 import { AfterViewInit, Component, ElementRef, signal, viewChild } from '@angular/core';
 import maplibregl from 'maplibre-gl';
 import { environment } from '../../../environments/environment';
+import { single } from 'rxjs';
+
+interface CustomMarker {
+  id: string;
+  maplibreMarker: maplibregl.Marker;
+}
 
 @Component({
   selector: 'app-markers-page',
   imports: [],
   templateUrl: './markers-page.component.html',
-  styles: ``
+  styles: ``,
 })
-export class MarkersPageComponent implements AfterViewInit{
+export class MarkersPageComponent implements AfterViewInit {
   divElement = viewChild<ElementRef>('map');
   map = signal<maplibregl.Map | null>(null);
   maptilerKey = environment.maptilerKey;
-  
+  markers = signal<CustomMarker[]>([]);
+
   async ngAfterViewInit(): Promise<void> {
     if (!this.divElement()?.nativeElement) return;
-    
+
     await new Promise((resolve) => setTimeout(resolve, 80));
 
     const element = this.divElement()!.nativeElement;
@@ -27,23 +34,53 @@ export class MarkersPageComponent implements AfterViewInit{
       zoom: 11, // starting zoom
     });
 
-    const marker = new maplibregl.Marker({
-      draggable: false,
-      color: '#000',
-    })
-      .setLngLat([-3.6960161913658824, 40.38671882472341])
-      .addTo(map);
+    // const marker = new maplibregl.Marker({
+    //   draggable: false,
+    //   color: '#000',
+    // })
+    //   .setLngLat([-3.6960161913658824, 40.38671882472341])
+    //   .addTo(map);
 
-    marker.on('dragend', (event) => {
-      console.log(event);
-    })
+    // marker.on('dragend', (event) => {
+    //   console.log(event);
+    // })
 
     this.mapListeners(map);
   }
 
-  mapListeners(map: maplibregl.Map){
-    
+  mapListeners(map: maplibregl.Map) {
+    map.on('click', (event) => {
+      this.mapClick(event);
+    });
+
+    this.map.set(map);
   }
 
+  mapClick(event: maplibregl.MapMouseEvent) {
+    if (!this.map()) return;
 
+    const map = this.map()!;
+    const coords = event.lngLat;
+    const color = '#xxxxxx'.replace(/x/y, (y) =>
+      ((Math.random() * 16) | 0).toString(16)
+    );
+
+    const maplibreMarker = new maplibregl.Marker({
+      color: color,
+    })
+      .setLngLat(coords)
+      .addTo(map);
+
+    const newMarker: CustomMarker = {
+      id: UUIDv4(),
+      maplibreMarker: maplibreMarker,
+    };
+
+    // this.markers.set([maplibreMarker, ...this.markers()]);
+    this.markers.update((markers) => [newMarker, ...markers]);
+  }
 }
+function UUIDv4(): string {
+  throw new Error('Function not implemented.');
+}
+
