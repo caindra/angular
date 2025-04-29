@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, signal, viewChild } from '@angular/core';
-import maplibregl from 'maplibre-gl';
+import maplibregl, { LngLatLike } from 'maplibre-gl';
 import { environment } from '../../../environments/environment';
-import { single } from 'rxjs';
+import { v4 as UUIDv4 } from 'uuid';
+import { JsonPipe } from '@angular/common';
 
 interface CustomMarker {
   id: string;
@@ -10,7 +11,9 @@ interface CustomMarker {
 
 @Component({
   selector: 'app-markers-page',
-  imports: [],
+  imports: [
+    JsonPipe,
+  ],
   templateUrl: './markers-page.component.html',
   styles: ``,
 })
@@ -79,8 +82,23 @@ export class MarkersPageComponent implements AfterViewInit {
     // this.markers.set([maplibreMarker, ...this.markers()]);
     this.markers.update((markers) => [newMarker, ...markers]);
   }
-}
-function UUIDv4(): string {
-  throw new Error('Function not implemented.');
+
+  flyToMarker(lngLat: LngLatLike) {
+    if (!this.map()) return;
+
+    this.map()?.flyTo({
+      center: lngLat,
+    });
+  }
+
+  deleteMarker(marker: CustomMarker) {
+    if (!this.map()) return;
+    const map = this.map()!;
+
+    marker.maplibreMarker.remove();
+
+    this.markers.set(this.markers().filter((m) => m.id !== marker.id));
+    // this.markers.update(this.markers().filter((m) => m.id !== marker.id));
+  }
 }
 
