@@ -3,3 +3,11 @@
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark, pastel;
 }
+
+@layer base {
+  @font-face {
+    font-family: "Montserrat";
+    src: url("/08-teslo-shop/public/assets/montserrat-alternates/MontserratAlternates-Medium.ttf")
+      format(truetype);
+  }
+}
