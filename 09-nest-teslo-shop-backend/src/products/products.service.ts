@@ -18,6 +18,9 @@ import { User } from '../auth/entities/user.entity';
 
 @Injectable()
 export class ProductsService {
+  getProducts(): import("rxjs").Observable<unknown> {
+    throw new Error('Method not implemented.');
+  }
   private readonly logger = new Logger('ProductsService');
 
   constructor(
