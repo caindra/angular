@@ -1,4 +1,4 @@
-import { ProductsResponse, Gender } from './../interfaces/product.interface';
+import { ProductsResponse, Gender, Product } from './../interfaces/product.interface';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
@@ -34,4 +34,9 @@ export class ProductsService {
       })
       .pipe(tap((resp) => console.info(resp)));
   }
+
+  getProductByIdSlug(idSlug: string): Observable<Product>{
+    return this.http.get<Product>(`${baseUrl}/products/${idSlug}`);
+  }
+
 }

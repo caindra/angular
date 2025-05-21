@@ -23,7 +23,7 @@ export const storeFrontRoutes: Routes = [
           ),
       },
       {
-        path: 'product/:id',
+        path: 'product/:idSlug',
         loadComponent: () =>
           import('./pages/product-page/product-page.component').then(
             (m) => m.ProductPageComponent
