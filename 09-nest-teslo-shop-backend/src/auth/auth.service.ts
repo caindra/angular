@@ -47,7 +47,7 @@ export class AuthService {
 
   }
 
-  async login( loginUserDto: LoginUserDto ) {
+  async login(email: string | null, password: string | null, loginUserDto: LoginUserDto) {
 
     const { password, email } = loginUserDto;
 
